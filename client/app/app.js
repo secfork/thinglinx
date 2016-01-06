@@ -3,8 +3,7 @@
 
 angular.module('thinglinxApp', [
 
-        'ngCookies',
-
+        'ngCookies', 
         'ngResource',
 
         'ngSanitize',
