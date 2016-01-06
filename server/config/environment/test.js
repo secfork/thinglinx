@@ -1,20 +1,19 @@
 'use strict';
 
-// Test specific configuration
-// ===========================
-module.exports = {
-  // MongoDB connection options
-  mongo: {
-    uri: 'mongodb://localhost/thinglinx-test'
-  },
-  sequelize: {
-    uri: 'sqlite://',
-    options: {
-      logging: false,
-      storage: 'test.sqlite',
-      define: {
-        timestamps: false
-      }
-    }
-  }
+var path = require('path');
+var _ = require('lodash');
+
+ 
+// All configurations will extend these options
+// ============================================
+module.exports = { 
+  port: process.env.PORT || 9000,
+
+  // Server IP
+  ip: process.env.IP || '0.0.0.0',
+ 
+
+
+ 
 };
+ 

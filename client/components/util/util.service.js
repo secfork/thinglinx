@@ -13,6 +13,8 @@ function UtilService($window) {
      * @param  {Function|*} cb - a 'potential' function
      * @return {Function}
      */
+
+     
     safeCb(cb) {
       return (angular.isFunction(cb)) ? cb : angular.noop;
     },

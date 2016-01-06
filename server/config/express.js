@@ -14,11 +14,17 @@ import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
 import lusca from 'lusca';
-import config from './environment';
+import config from './index';
 import session from 'express-session';
+import  redisConnect from 'connect-redis';
+
 
 export default function(app) {
+
   var env = app.get('env');
+
+  var  redisStore = redisConnect(session);
+
 
   app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
@@ -34,17 +40,20 @@ export default function(app) {
   // oauth 1.0 strategy, and Lusca depends on sessions
   
 
+
   app.use(session({
     secret: config.secrets.session,
     saveUninitialized: true,
-    resave: false
+    resave: false ,
+   // store: new redisStore( config.redisOption ) 
+
   }));
 
   /**
    * Lusca - express server security
    * https://github.com/krakenjs/lusca
    */
-  if ('test' !== env) {
+  
     app.use(lusca({
       csrf: {
         angular: true
@@ -57,23 +66,31 @@ export default function(app) {
       },
       xssProtection: true
     }));
-  }
+  
 
   app.set('appPath', path.join(config.root, 'client'));
 
+
+   //==========================================================
+
   if ('production' === env) {
+    // icon 图标; 
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
+    // 静态文件目录;
     app.use(express.static(app.get('appPath')));
+    // 日志相关;
     app.use(morgan('dev'));
   }
+
 
   if ('development' === env) {
     app.use(require('connect-livereload')());
   }
-
+ 
   if ('development' === env || 'test' === env) {
     app.use(express.static(path.join(config.root, '.tmp')));
-    app.use(express.static(app.get('appPath')));
+    app.use(express.static(app.get('appPath'))  );
+
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }

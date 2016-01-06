@@ -61,10 +61,12 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js'],
         tasks: ['newer:babel:client']
       },
-      ngconstant: {
-        files: ['<%= yeoman.server %>/config/environment/shared.js'],
-        tasks: ['ngconstant']
-      },
+      
+      // ngconstant: {
+      //   files: ['<%= yeoman.server %>/config/environment/shared.js'],
+      //   tasks: ['ngconstant']
+      // },
+
       injectJS: {
         files: [
           '<%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js',
@@ -301,22 +303,23 @@ module.exports = function (grunt) {
 
     // Dynamically generate angular constant `appConfig` from
     // `server/config/environment/shared.js`
-    ngconstant: {
-      options: {
-        name: 'thinglinxApp.constants',
-        dest: '<%= yeoman.client %>/app/app.constant.js',
-        deps: [],
-        wrap: true,
-        configPath: '<%= yeoman.server %>/config/environment/shared'
-      },
-      app: {
-        constants: function() {
-          return {
-            appConfig: require('./' + grunt.config.get('ngconstant.options.configPath'))
-          };
-        }
-      }
-    },
+    
+    // ngconstant: {
+    //   options: {
+    //     name: 'thinglinxApp.constants',
+    //     dest: '<%= yeoman.client %>/app/app.constant.js',
+    //     deps: [],
+    //     wrap: true,
+    //     configPath: '<%= yeoman.server %>/config/environment/shared'
+    //   },
+    //   app: {
+    //     constants: function() {
+    //       return {
+    //         appConfig: require('./' + grunt.config.get('ngconstant.options.configPath'))
+    //       };
+    //     }
+    //   }
+    // },
 
     // Package all the html partials into a single javascript payload
     ngtemplates: {
@@ -416,7 +419,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       pre: [
-        'ngconstant'
+        // 'ngconstant'
       ],
       server: [
         'newer:babel:client',
@@ -524,7 +527,7 @@ module.exports = function (grunt) {
     // Compiles ES6 to JavaScript using Babel
     babel: {
       options: {
-        sourceMap: true,
+        sourceMap:  false , //true,
         optional: [
           'es7.classProperties'
         ]
@@ -622,8 +625,18 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run([
+        'build', 
+        'env:all', 
+        'env:prod', 
+        'express:prod', 
+        'wait',
+         'open', 
+        'express-keepalive'
+        ]);
     }
+
+
 
     if (target === 'debug') {
       return grunt.task.run([
@@ -755,6 +768,7 @@ module.exports = function (grunt) {
     'concurrent:pre',
     'concurrent:dist',
     'injector',
+   
     'wiredep:client',
     'useminPrepare',
     'postcss',
