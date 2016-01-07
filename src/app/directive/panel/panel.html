@@ -1,0 +1,48 @@
+
+
+<div class="bg-light lter b-b wrapper ng-scope"> 
+    <h2 class="m-n font-thin h4">  {{::panel.subject}}  </h2> 
+    <a href=""  class="text-xs "  > 返回<span class="text-info">  </span>  </a>
+    
+</div>
+
+
+<div class="wrapper-md">
+    <div class="panel panel-default"> 
+        <div class="panel-heading">
+            {{:: panel.title }}
+        </div> 
+ 
+        <div class="panel-body no-border table-responsive no-padder" load-mask>
+             
+            <ng-transclude></ng-transclude>  
+  
+        </div>
+        
+        <div class="panel-footer text-center " style="min-height:50px;">
+ 
+            <button  
+                ng-repeat = "btn  in panel.panelBBS " 
+                class="btn btn-sm  pull-left m-l-sm {{:: btn.classFor }} "
+                ng-click="btn.handler()">
+                {{ :: btn.text }}
+            </button>  
+            
+            <pagination ng-if = "panel.pagger" 
+                        class="pagination-sm  " 
+                        total-items="page.total"
+                        ng-model="page.currentPage"
+                        items-per-page=" $sys.itemsPerPage " 
+                        ng-change=" loadPageData( page.currentPage   ) " 
+                        num-pages=" page.numPages " 
+                        max-size="10" 
+                        boundary-links="true" rotate="false" 
+                        first-text="&laquo;" 
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;" 
+                        last-text="&raquo;">
+            </pagination>
+        </div>
+
+    </div> 
+</div>
