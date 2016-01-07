@@ -1,0 +1,64 @@
+<tl-panel>
+    <div tl-panel-inputs>
+        <input tl-panel-input ng-model="yy" search="click(122)">
+    </div>
+    <table tl-table-class>
+        <thead class="flip-content">
+            <tr class="background ">
+                <th ng-repeat=" th in  tableHeaders" width="{{:: th.w }} ">
+                    {{:: th.text}}
+                </th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="  proj  in page.data  " 
+                ng-init=" collectRegionId( proj , $last )" >
+                 
+                <td>
+                    <a class="text-info-dk  "
+                        ng-click="  goto ( _$nextState ,  proj  , proj ); ">
+                           {{ proj.name }} 
+                    </a>
+                    <popwin ng-model="proj" ng-if=" !isShowModul" prop="name" handler=" updateRegion  " />
+                </td>
+
+                <td> {{ :: proj.create_time | date:"yyyy-MM-dd HH:mm Z" }}</td>
+                <td class="numeric " id="act_{{proj.id}}">
+                    0
+                </td>
+                <td class="numeric "  id="unact_{{proj.id}}">
+                    0
+                </td>
+                <td>{{ proj.desc}}
+                    <popwin ng-model="proj"   prop="desc" handler=" updateRegion  " />
+                </td>
+                <td class="numeric" >
+                    <a class="text-info-dk m-r-xs" ng-disabled="true" 
+                       ng-click="delProject( proj  , $index   )">删除</a>
+                   
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</tl-panel>
+
+
+
+
+
+
+
+
+
+
+<!--      
+        <input tl-panel-input  col="col-lg-2-4" label="名称" ng-model="op.xx" />
+        <input tl-panel-input  col="col-lg-2-4" label="ID" ng-model="q" /> 
+         <select tl-panel-input col="col-lg-2-4" label="区域" ng-model="r"   />
+        <select tl-panel-input  col="col-lg-2-4" label="模型" ng-model="t"   />  
+  
+        <select tl-panel-input label="活跃状态" 
+            col="col-lg-2-4"
+            ng-model="x" ng-options=" v as k  for (k,v) in $sys.sysState">
+            <option value="">-全部-</option>
+        </select> 
+        -->
