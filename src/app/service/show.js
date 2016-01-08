@@ -1,21 +1,24 @@
-export default ( $resource )=>{
+export default ( $resource  , $sys )=>{
 	"ngInject";
 
-    var live = angular.rootUrl + "show/live/:uuid",
-        liveWrite = angular.rootUrl + 'show/livewrite/:uuid', // uuid = system uid ;
-        // his = angular.rootUrl + "show/history/:uuid",   // uuid = system uid ;
-        his = angular.rootUrl + "line/:uuid/:method",   // uuid = system uid ;
-        alarm = angular.rootUrl + "show/alarm/:uuid/:op";   // uuid = system uid ;
+    var  $show = {} ,
+        restNode = $sys.restNode ;
+
+    var live = restNode + "show/live/:uuid",
+        liveWrite = restNode + 'show/livewrite/:uuid', // uuid = system uid ;
+        // his = restNode + "show/history/:uuid",   // uuid = system uid ;
+        his = restNode + "line/:uuid/:method",   // uuid = system uid ;
+        alarm = restNode + "show/alarm/:uuid/:op";   // uuid = system uid ;
 
  
-    this.live = $resource(live);
-    this.his = $resource(his);
+    $show.live = $resource(live);
+    $show.his = $resource(his);
 
-    this.alarm = $resource(alarm , {},{
+    $show.alarm = $resource(alarm , {},{
         conform: { method:"POST" , params:{uuid:"confirm"}   },
         getConformMsg: { params: {uuid:"confirm"}    }
     });
-    this.liveWrite = $resource(liveWrite); // 下置; 
+    $show.liveWrite = $resource(liveWrite); // 下置; 
 
 
 }

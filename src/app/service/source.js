@@ -1,37 +1,43 @@
-export default ($resource) => {
+export default ($resource , $sys ) => {
     "ngInject";
 
+
+   var  restNode = $sys.restNode ;
+
+
     function $createSource(url, config1, config2) {
-        return $resource(angular.rootUrl + url, config1, config2);
-    }
+        return $resource( restNode  + url, config1, config2);
+    };
 
+    var  $source = {} ;
+ 
 
-    this.$deviceModel = $createSource("devmodel/:pk");
-    this.$dmPoint = $createSource("devmodel/points/:pk");
-    this.$sysProfile = $createSource("profile/:pk");
-    this.$sysLogTag = $createSource("profile/tags/:pk");
-    this.$sysTag = $createSource("sysmodel/tags/:pk");
-    this.$sysProfTrigger = $createSource("profile/triggers/:pk");
-    this.$sysModel = $createSource("sysmodel/:pk");
-    this.$sysDevice = $createSource("sysmodel/devices/:pk");
-    this.$message = $createSource("sysmodel/messages/:pk");
-    this.$contact = $createSource( "system/contacts/:pk" );
-    this.$region = $createSource( "region/:pk/:op" );
+    $source.$deviceModel = $createSource("devmodel/:pk");
+    $source.$dmPoint = $createSource("devmodel/points/:pk");
+    $source.$sysProfile = $createSource("profile/:pk");
+    $source.$sysLogTag = $createSource("profile/tags/:pk");
+    $source.$sysTag = $createSource("sysmodel/tags/:pk");
+    $source.$sysProfTrigger = $createSource("profile/triggers/:pk");
+    $source.$sysModel = $createSource("sysmodel/:pk");
+    $source.$sysDevice = $createSource("sysmodel/devices/:pk");
+    $source.$message = $createSource("sysmodel/messages/:pk");
+    $source.$contact = $createSource( "system/contacts/:pk" );
+    $source.$region = $createSource( "region/:pk/:op" );
         
         // account/admin?uuid 来判断 uuid is Exist
-    this.$account = $createSource( "account/:pk" );
+    $source.$account = $createSource( "account/:pk" );
 
-    this.$role = $createSource("role/:pk");
-    this.$driver = $createSource("driver/:type");
-    this.$sub    =  $createSource("subscribe/:pk/:op");
+    $source.$role = $createSource("role/:pk");
+    $source.$driver = $createSource("driver/:type");
+    $source.$sub    =  $createSource("subscribe/:pk/:op");
 
     // http://faefae.com/:id/crate , { id:123}
     
     //    sou: connent( sys联系人) , user( 用户) , 
     //  ? send : cell_phone , verify: code ;  
-    this.$note = $createSource("sms/:op/:sou"); 
+    $source.$note = $createSource("sms/:op/:sou"); 
 
-    this.$common = $createSource("common/:op", {}, {
+    $source.$common = $createSource("common/:op", {}, {
         // 验证 uuid ; 
         verifyUuid:{
             params:{op:"vuuid"}
@@ -39,30 +45,30 @@ export default ($resource) => {
 
        // 验证 图片验证码; 
         verify: {
-            url: angular.rootUrl +"common/verify"
+            url: restNode +"common/verify"
         }
 
     });
 
-    this.$user = $createSource("user/:pk/:op", {}, {
+    $source.$user = $createSource("user/:pk/:op", {}, {
         login: {
-            url: angular.rootUrl + "common/login",
+            url: restNode + "common/login",
             method: "POST"
         },
         logout: {
-            url:angular.rootUrl + "user/logout"
+            url:restNode + "user/logout"
         }
     });
     
     /// {pk:"@pk", userid:"@userid"} ,
-    this.$userGroup = $createSource("usergroup/:pk/:userid" ,  {}, {
-          queryUser :{ url: angular.rootUrl + "usergroup/:pk/users" },
+    $source.$userGroup = $createSource("usergroup/:pk/:userid" ,  {}, {
+          queryUser :{ url: restNode + "usergroup/:pk/users" },
 
     });
 
-    this.$ticket = $createSource( "ticket/:system_id");
+    $source.$ticket = $createSource( "ticket/:system_id");
 
-    this.$system = $createSource("system/:pk/:options/:proj_id", {}, {
+    $source.$system = $createSource("system/:pk/:options/:proj_id", {}, {
         sync: {
             method: "GET", params:{ options:"sync" }
         },
@@ -94,8 +100,9 @@ export default ($resource) => {
     });
 
     // 权限;
-    this.$permission = $createSource( "permission/:source/:source_id/:group_id"  )
+    $source.$permission = $createSource( "permission/:source/:source_id/:group_id"  )
     
 
+    return $source ; 
 
 }
