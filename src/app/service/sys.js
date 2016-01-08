@@ -3,6 +3,8 @@ export default  ()=>{
     return {
 
                 itemsPerPage: 20,
+                
+                restNode: "node/",
 
                 state_inter_time: 60000, // system 在线状态更新 周期; 
 
@@ -10,6 +12,13 @@ export default  ()=>{
                     "是": 1,
                     "否": 0
                 },
+
+                daServer:{
+                    "DTU":"DTU" ,
+                    "DTUxx":"DTUxx" ,
+                    
+                },
+
 
                 sysState: { 
                     '激活': 1,
@@ -189,6 +198,24 @@ export default  ()=>{
                         delay: 1,
                     },
                 },
+
+
+
+
+                "valid": {
+                        "required": "该字段不能为空!",
+                        "min": "该数值必须不小于X",
+                        "minlength": "该字段至少为X个字符!",
+                        "maxlength": "该字段不能不超过X个字符!",
+                        "max": "该数值必须小于X",
+                        "email": "Email 格式不正确!",
+                        "number": "该数值必须为数字格式!",
+                        "Number": "该数值必须为数字格式!"
+
+
+                },
+
+
 
 
                 //======================================================
