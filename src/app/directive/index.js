@@ -20,7 +20,9 @@ import panelInput from "./input/panel_input";
 
 
 import formInput from "./input/form_input";
-import formRadio from "./input/form_radio"
+import formRadio from "./input/form_radio";
+import formInputValid from "./input/validInput";
+
 
 import loadMask from "./loadMask";
 
@@ -36,6 +38,7 @@ export default (module) => {
         .directive("tlInput", formInput)
         .directive("tlRadio", formRadio)
         .directive("loadMask", loadMask)
+        .directive("valid" , formInputValid );
 
 
 
