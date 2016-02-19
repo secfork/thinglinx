@@ -12,7 +12,9 @@ var valid =  {
     "email": "Email格式不正确!",
     "number": "该字段必须为数字格式!",
     "Number": "该字段必须为数字格式!"  
-},
+};
+
+
 function  pText( type  , value ){
 	var text =  valid[ type ] ;
 	if( !text ) 
@@ -22,7 +24,7 @@ function  pText( type  , value ){
 		text = text.replace("X", value);
 	} 
 	return  "<p class='text-danger' ng-if=' m.$dirty &&  m.$error."+type+" '>"+ text +"</p>"
-}
+} ;
 
  
 
@@ -33,6 +35,7 @@ export  default ( $compile  )=>{
 		restrict:"A", 
 		require: 'ngModel',
 		link:( scope , ele , attrs , modelCtrl )=>{
+
 			var label = ' <label class= " col-sm-3 control-label " > '+ attrs.label +' </label> ' ,
 				wrap_input = '<div class="form-group"><div class="col-sm-8"></div></div> ' ,
  				messageDom = $('<div></div>');
@@ -48,9 +51,9 @@ export  default ( $compile  )=>{
 	        attrs.ngMaxlength 	&&  messageDom.append( pText( 'maxlength' ,  attrs.ngMaxlength  ) );
 	       		
  
-	        ele.addClass(  ele.is("input , textarea ,select")?"form-control" : " no-border")
+	        ele.addClass(  ele.is("input , textarea ,select")?"form-control" : " no-border" )
 				.wrap( wrap_input)
-	       	    .after( $compile( messageDom)( scope) ) ;
+	       	    .after( $compile( messageDom)( scope) ) 
 				.parent().before( label );
 
 

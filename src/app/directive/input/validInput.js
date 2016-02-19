@@ -1,8 +1,8 @@
-
+ 
 
 export default ($compile ) => {
 
-    "ngInject"
+    "ngInject" ;
 
     var valid =  {
         "required": "该字段不能为空!",
@@ -16,7 +16,7 @@ export default ($compile ) => {
         "email": "Email格式不正确!",
         "number": "该字段必须为数字格式!",
         "Number": "该字段必须为数字格式!"  
-    },
+    } ;
     function  pText( type  , value ){
     	var text =  valid[ type ] ;
     	if( !text ) 
@@ -26,27 +26,27 @@ export default ($compile ) => {
     		text = text.replace("X", value);
     	} 
     	return  "<p class='text-danger' ng-if=' m.$dirty &&  m.$error."+type+" '>"+ text +"</p>"
-    }
+    } ;
+
     return {
-    	restrict::"A", 
-		require: 'ngModel',
-	    link:( $scope, $ele, $attrs, modelCtrl)=> {
+        restrict:"A", 
+        require: 'ngModel',
+        link:( scope , ele , attrs , modelCtrl )=> {
 
-	        $scope.m = modelCtrl;
+            $scope.m = modelCtrl;
 
-	        var  messageDom = $('<div></div>');
-	        
-	 
-	        $attrs.required  && messageDom.append(  pText('required') );
-	        $attrs.type  &&   messageDom.append(  pText( $attrs.type ) );
-	        $attrs.max &&    messageDom.append( pText( 'max' ,  $attrs.max )  );
-	        $attrs.min &&   messageDom.append( pText( 'min' ,  $attrs.min ) );
-	        $attrs.ngMinlength  && messageDom.append( pText( 'minlength' ,  $attrs.ngMinlength  ) );
-	        $attrs.ngMaxlength &&  messageDom.append( pText( 'maxlength' ,  $attrs.ngMaxlength  ) );
-	       	
-	       	$ele.after( $compile( messageDom)( $scope) ) ;
+            var  messageDom = $('<div></div>');
+            
+            $attrs.required  && messageDom.append(  pText('required') );
+            $attrs.type  &&   messageDom.append(  pText( $attrs.type ) );
+            $attrs.max &&    messageDom.append( pText( 'max' ,  $attrs.max )  );
+            $attrs.min &&   messageDom.append( pText( 'min' ,  $attrs.min ) );
+            $attrs.ngMinlength  && messageDom.append( pText( 'minlength' ,  $attrs.ngMinlength  ) );
+            $attrs.ngMaxlength &&  messageDom.append( pText( 'maxlength' ,  $attrs.ngMaxlength  ) );
+            
+            $ele.after( $compile( messageDom)( $scope) ) ;
 
-	    }
-
-	}
+        } 
+        
+    }
 }

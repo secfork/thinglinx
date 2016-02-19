@@ -12,10 +12,9 @@ export  default ( $timeout )=>{
             $element.append($maskDom);
  
             $scope.$watch( wtcher , function(n) {
-                //@if  append
+                
                 console.log("showMask =", n);
-
-                //@endif  
+ 
                 (n ? show : hide)();
 
             })

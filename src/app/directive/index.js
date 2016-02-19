@@ -9,7 +9,7 @@ export  default ()=>{
 
 */
 
-import initFrameWorkDirective from "./foramework";
+import initFrameWorkDirective from "./forameworkDirective";
 
 import panel from "./panel";
 
